@@ -1,5 +1,6 @@
 const seq = require('../sequelize');
 const { BOOLEAN, STRING, DECIMAL } = require('../types');
+const { MSY } = require('../../utils/constants');
 
 const GraphicsCard = seq.define('graphicsCard', {
   name: {
@@ -19,6 +20,18 @@ const GraphicsCard = seq.define('graphicsCard', {
     allowNull: false
   },
   image: {
+    type: STRING
+  },
+  localRetailer: {
+    type: STRING,
+    defaultValue: MSY
+  },
+  retailerId: {
+    type: STRING,
+    allowNull: false,
+    unique: true
+  },
+  retailerSKU: {
     type: STRING
   },
   tpd: {
