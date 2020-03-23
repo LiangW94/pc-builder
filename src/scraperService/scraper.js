@@ -7,8 +7,8 @@ const { SuccessModel, ErrorModel } = require('../model/ResModel');
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-const allProductLinks = [];
-const productList = [];
+let allProductLinks = [];
+let productList = [];
 let productCounter = 0;
 
 /**
@@ -16,6 +16,8 @@ let productCounter = 0;
  */
 async function scrapLinks() {
   try {
+    allProductLinks = [];
+    productList = [];
     productCounter = 0;
     const cpuPayload = buildPayload(MSY_CONFIG.CATEGORY_ID.CPU);
     const allProductListPage = await axios.post(
@@ -27,10 +29,12 @@ async function scrapLinks() {
     $('.product-item').each((i, element) => {
       const $element = $(element);
       const id = $element.attr('data-productid');
+      const image = $element.find('div a img').attr('src');
       const href = $element.find('div div a').attr('href');
       const productLink = {
         id,
-        href: `${MSY_CONFIG.MSY_DOMAIN}${href}`
+        href: `${MSY_CONFIG.MSY_DOMAIN}${href}`,
+        image
       };
       allProductLinks.push(productLink);
     });
@@ -39,7 +43,7 @@ async function scrapLinks() {
     await Promise.all(
       allProductLinks.map((product, index) => scrapItemFromLink(product, index))
     );
-    return new SuccessModel();
+    return new SuccessModel(productList);
   } catch (error) {
     console.log(error);
     console.log('fetch link error');
@@ -66,7 +70,8 @@ async function scrapItemFromLink(product, index) {
       .trim();
     const sku_id = $('.sku .value').attr('id');
     const price = $('.product-price span').attr('content');
-    const productDetail = { productName, sku, sku_id, price };
+    const { image } = product;
+    const productDetail = { productName, sku, sku_id, price, image };
 
     // scrap specification
     $('#specification tbody tr').each((i, element) => {
