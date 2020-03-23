@@ -40,7 +40,7 @@ const Cpu = seq.define('cpu', {
     type: STRING
   },
   tpd: {
-    type: DECIMAL
+    type: STRING
   },
   performanceLevel: {
     type: STRING
