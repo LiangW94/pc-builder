@@ -4,6 +4,11 @@
 
 const { Cpu } = require('../db/model/index');
 
+async function destroyTableData() {
+  const result = await Cpu.destroy({ where: {} });
+  console.log(result);
+}
+
 /**
  *
  * @param {Array} productList
@@ -15,4 +20,4 @@ async function bulkCreate(productList) {
   return result.dataValues;
 }
 
-module.exports = { bulkCreate };
+module.exports = { bulkCreate, destroyTableData };
