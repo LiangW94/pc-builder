@@ -14,11 +14,12 @@ let productCounter = 0;
 /**
  * @description scrap all product links from a page
  */
-async function scrapLinks() {
+async function scrapProductDetail() {
   try {
     allProductLinks = [];
     productList = [];
     productCounter = 0;
+
     const cpuPayload = buildPayload(MSY_CONFIG.CATEGORY_ID.CPU);
     const allProductListPage = await axios.post(
       `${MSY_CONFIG.MSY_DOMAIN}/GetFilteredProduct`,
@@ -41,7 +42,9 @@ async function scrapLinks() {
     console.log('all cpu links fetched');
 
     await Promise.all(
-      allProductLinks.map((product, index) => scrapItemFromLink(product, index))
+      allProductLinks.map((product, index) =>
+        _scrapProductDetailFromLink(product, index)
+      )
     );
     return new SuccessModel(productList);
   } catch (error) {
@@ -56,7 +59,7 @@ async function scrapLinks() {
  * @param {Object} product
  * @param {Number} index
  */
-async function scrapItemFromLink(product, index) {
+async function _scrapProductDetailFromLink(product, index) {
   try {
     const productDetailPage = await axios.get(product.href);
     const $ = cheerio.load(productDetailPage.data);
@@ -111,5 +114,5 @@ async function scrapItemFromLink(product, index) {
 }
 
 module.exports = {
-  scrapLinks
+  scrapProductDetail
 };
