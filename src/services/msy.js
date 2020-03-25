@@ -4,9 +4,25 @@
 
 const { Cpu } = require('../db/model/index');
 
-async function destroyTableData() {
-  const result = await Cpu.destroy({ where: {} });
-  console.log(result);
+/**
+ *
+ * @param {Array} productList
+ */
+async function findOrCreate(productList) {
+  let createNumber = 0;
+  const createProducts = [];
+  await Promise.all(
+    productList.map(async (product, i) => {
+      const result = await Cpu.findOrCreate({
+        where: { retailerSKU: product.retailerSKU },
+        defaults: product
+      });
+      if (result[1]) {
+        createNumber++, createProducts.push(result[0].dataValues);
+      }
+    })
+  );
+  console.log(createNumber, ' created: ', createProducts);
 }
 
 /**
@@ -14,10 +30,13 @@ async function destroyTableData() {
  * @param {Array} productList
  */
 async function bulkCreate(productList) {
-  debugger;
   const result = await Cpu.bulkCreate(productList);
-  debugger;
   return result.dataValues;
 }
 
-module.exports = { bulkCreate, destroyTableData };
+async function destroyTableData() {
+  const result = await Cpu.destroy({ where: {} });
+  console.log(result);
+}
+
+module.exports = { bulkCreate, destroyTableData, findOrCreate };

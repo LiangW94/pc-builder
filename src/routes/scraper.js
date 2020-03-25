@@ -1,14 +1,14 @@
 /**
  * @description export for test purpose
  */
-const { fetchData } = require('../controller/msy');
+const { fetchCpuData } = require('../controller/msy');
 
 const router = require('koa-router')();
 
 router.prefix('/scraper');
 
-router.get('/test', async function(ctx, next) {
-  const result = await fetchData();
+router.get('/cpu', async function(ctx, next) {
+  const result = await fetchCpuData();
   ctx.body = result;
 });
 
