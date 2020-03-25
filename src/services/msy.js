@@ -23,6 +23,25 @@ async function findOrCreate(productList) {
     })
   );
   console.log(createNumber, ' created: ', createProducts);
+  return createProducts;
+}
+
+async function updateCpuData(productList) {
+  let updatedRow = 0;
+  await Promise.all(
+    productList.map(async (product, i) => {
+      const { name, brand, price, image, inStock } = product;
+      const result = await Cpu.update(
+        { name, brand, price, image, inStock },
+        {
+          where: { retailerSKU: product.retailerSKU }
+        }
+      );
+      result[0] > 0 && updatedRow++;
+    })
+  );
+
+  return `updated rows: ${updatedRow}`;
 }
 
 /**
@@ -39,4 +58,4 @@ async function destroyTableData() {
   console.log(result);
 }
 
-module.exports = { bulkCreate, destroyTableData, findOrCreate };
+module.exports = { bulkCreate, destroyTableData, findOrCreate, updateCpuData };

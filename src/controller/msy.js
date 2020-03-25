@@ -4,7 +4,7 @@
 
 const { SuccessModel, ErrorModel } = require('../model/ResModel');
 const { scrapProductDetail } = require('../scraperService/scraper');
-const { findOrCreate } = require('../services/msy');
+const { findOrCreate, updateCpuData } = require('../services/msy');
 const { cpuDataMapper } = require('../services/formatter');
 
 async function fetchCpuData() {
@@ -12,8 +12,9 @@ async function fetchCpuData() {
     const productList = await scrapProductDetail();
     const formattedCpuData = cpuDataMapper(productList.data);
 
-    const result = await findOrCreate(formattedCpuData);
-    return new SuccessModel(result);
+    const createdProduct = await findOrCreate(formattedCpuData);
+    const updatedProduct = await updateCpuData(formattedCpuData);
+    return new SuccessModel({ createdProduct, updatedProduct });
   } catch (error) {
     console.log(error.message);
     return new ErrorModel({
