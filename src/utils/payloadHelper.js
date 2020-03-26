@@ -1,4 +1,4 @@
-function buildPayload(categoryId) {
+function buildPayload(categoryId, pageNumber = null) {
   return {
     categoryId,
     manufacturerId: '0',
@@ -234,7 +234,7 @@ function buildPayload(categoryId) {
         }
       ]
     },
-    pageNumber: null,
+    pageNumber: pageNumber,
     orderby: 'Position',
     viewmode: 'grid',
     pagesize: '48',
