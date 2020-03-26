@@ -3,13 +3,13 @@ module.exports = {
   MSY_CONFIG: {
     MSY_DOMAIN: 'https://www.msy.com.au',
     CATEGORY_ID: {
-      CASE: '0',
+      CASE: '36',
       CPU: '30',
-      GRAPHICS_CARD: '0',
-      MEMORY: '0',
-      MOTHERBOARD: '0',
+      GRAPHICS_CARD: '34',
+      MEMORY: '32',
+      MOTHERBOARD: '31',
       PSU: '40',
-      STORAGE: '0'
+      STORAGE: '33'
     }
   }
 };
