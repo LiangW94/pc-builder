@@ -26,7 +26,7 @@ async function findOrCreate(productList) {
   return createProducts;
 }
 
-async function updateCpuData(productList) {
+async function updateData(productList) {
   let updatedRow = 0;
   await Promise.all(
     productList.map(async (product, i) => {
@@ -58,4 +58,4 @@ async function destroyTableData() {
   console.log(result);
 }
 
-module.exports = { bulkCreate, destroyTableData, findOrCreate, updateCpuData };
+module.exports = { bulkCreate, destroyTableData, findOrCreate, updateData };
