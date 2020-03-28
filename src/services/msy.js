@@ -3,9 +3,10 @@
  */
 
 const { Cpu } = require('../db/model/index');
+const CpuModel = require('../db/schema/cpu');
 
 /**
- *
+ * Sequelize findOrCreate
  * @param {Array} productList
  */
 async function findOrCreate(productList) {
@@ -26,6 +27,10 @@ async function findOrCreate(productList) {
   return createProducts;
 }
 
+/**
+ * Sequelize update
+ * @param {Array} productList
+ */
 async function updateData(productList) {
   let updatedRow = 0;
   await Promise.all(
@@ -45,17 +50,45 @@ async function updateData(productList) {
 }
 
 /**
- *
+ * Mongoose findOneOrUpdate
  * @param {Array} productList
  */
-async function bulkCreate(productList) {
-  const result = await Cpu.bulkCreate(productList);
-  return result.dataValues;
+async function findOneOrUpdate(productList) {
+  let createNumber = 0;
+  let updatedNumber = 0;
+  const createdProducts = [];
+  const updatedProducts = [];
+  await Promise.all(
+    productList.map(async (product, i) => {
+      const result = await CpuModel.find({ retailerSKU: product.retailerSKU });
+      const isRecordExist = result.length > 0;
+      if (isRecordExist) {
+        const { name, brand, price, image, inStock } = product;
+        await CpuModel.updateOne(
+          { retailerSKU: product.retailerSKU },
+          {
+            name,
+            brand,
+            price,
+            image,
+            inStock
+          }
+        );
+        updatedNumber++;
+        updatedProducts.push(product);
+      } else {
+        await CpuModel.create(product);
+        createNumber++;
+        createdProducts.push(product);
+      }
+    })
+  );
+  console.log(createNumber, ' created ,', updatedNumber, ' updated');
+  return { createdProducts, updatedProducts };
 }
 
-async function destroyTableData() {
-  const result = await Cpu.destroy({ where: {} });
-  console.log(result);
-}
-
-module.exports = { bulkCreate, destroyTableData, findOrCreate, updateData };
+module.exports = {
+  findOrCreate,
+  updateData,
+  findOneOrUpdate
+};
