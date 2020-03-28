@@ -1,4 +1,7 @@
 const { isDev, isProd, isTest } = require('../utils/env');
+const MONGODB_CONFIG = require('../../password.json');
+
+let MONGODB_CONNECTION_STRING = `mongodb+srv://${MONGODB_CONFIG.userName}:${MONGODB_CONFIG.password}@cluster0-buo0d.mongodb.net/${MONGODB_CONFIG.collection}?retryWrites=true&w=majority`;
 
 let MYSQL_CONFIG = {
   host: 'localhost',
@@ -45,5 +48,6 @@ if (isProd) {
 
 module.exports = {
   MYSQL_CONFIG,
-  REDIS_CONFIG
+  REDIS_CONFIG,
+  MONGODB_CONNECTION_STRING
 };
