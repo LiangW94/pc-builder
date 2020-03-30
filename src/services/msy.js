@@ -3,7 +3,6 @@
  */
 
 const { Cpu } = require('../db/model/index');
-const CpuModel = require('../db/schema/cpu');
 
 /**
  * Sequelize findOrCreate
@@ -52,19 +51,20 @@ async function updateData(productList) {
 /**
  * Mongoose findOneOrUpdate
  * @param {Array} productList
+ * @param {*} model
  */
-async function findOneOrUpdate(productList) {
+async function findOneOrUpdate(productList, Model) {
   let createNumber = 0;
   let updatedNumber = 0;
   const createdProducts = [];
   const updatedProducts = [];
   await Promise.all(
     productList.map(async (product, i) => {
-      const result = await CpuModel.find({ retailerSKU: product.retailerSKU });
+      const result = await Model.find({ retailerSKU: product.retailerSKU });
       const isRecordExist = result.length > 0;
       if (isRecordExist) {
         const { name, brand, price, image, inStock } = product;
-        await CpuModel.updateOne(
+        await Model.updateOne(
           { retailerSKU: product.retailerSKU },
           {
             name,
@@ -77,7 +77,7 @@ async function findOneOrUpdate(productList) {
         updatedNumber++;
         updatedProducts.push(product);
       } else {
-        await CpuModel.create(product);
+        await Model.create(product);
         createNumber++;
         createdProducts.push(product);
       }
