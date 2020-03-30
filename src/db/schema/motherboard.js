@@ -58,9 +58,6 @@ const MotherboardSchema = new Schema({
   },
   wirelessLAN: {
     type: BOOLEAN
-  },
-  integratedGPU: {
-    type: BOOLEAN
   }
 });
 const MotherboardModel = mongoose.model('Motherboard', MotherboardSchema);

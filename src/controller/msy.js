@@ -2,7 +2,7 @@
  * @description fetch data controller
  */
 
-const CpuModel = require('../db/schema/cpu');
+const { Cpu, Motherboard } = require('../db/schema/index');
 const { SuccessModel, ErrorModel } = require('../model/ResModel');
 const { scrapProductDetail } = require('../scraperService/scraper');
 const { MSY_CONFIG } = require('../utils/constants');
@@ -20,7 +20,7 @@ async function fetchCpuDataMongoose() {
   try {
     const productList = await scrapProductDetail(MSY_CONFIG.CATEGORY_ID.CPU);
     const formattedData = cpuDataMapper(productList.data);
-    const result = await findOneOrUpdate(formattedData, CpuModel);
+    const result = await findOneOrUpdate(formattedData, Cpu);
     return new SuccessModel(result);
   } catch (error) {
     console.log(error.message);
@@ -37,7 +37,7 @@ async function fetchMotherboardDataMongoose() {
       MSY_CONFIG.CATEGORY_ID.MOTHERBOARD
     );
     const formattedData = motherboardDataMapper(productList.data);
-    const result = await findOneOrUpdate(formattedData, CpuModel);
+    const result = await findOneOrUpdate(formattedData, Motherboard);
     return new SuccessModel(result);
   } catch (error) {
     console.log(error.message);

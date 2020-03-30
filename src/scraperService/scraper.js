@@ -50,7 +50,7 @@ async function scrapProductDetail(category) {
       )
     );
 
-    console.log('all products fetched');
+    console.log('all products fetched', 'category id: ', category);
     console.log(productList);
     return new SuccessModel(productList);
   } catch (error) {
