@@ -36,7 +36,6 @@ function motherboardDataMapper(rawData) {
       image: product['image'],
       retailerId: product['sku_id'],
       retailerSKU: product['sku'],
-      //tpd: product['TDP (Thermal Design Power)'],
       //   performanceLevel: ,
       inStock: product['inStock'],
       socket:
@@ -52,4 +51,26 @@ function motherboardDataMapper(rawData) {
   });
 }
 
-module.exports = { cpuDataMapper, motherboardDataMapper };
+function memoryDataMapper(rawData) {
+  return rawData.map(product => {
+    return {
+      name: product['productName'],
+      category: 'memory',
+      brand:
+        product['Brand'] || product['productName'].split(' ')[0] || 'unbranded',
+      price: product['price'],
+      image: product['image'],
+      retailerId: product['sku_id'],
+      retailerSKU: product['sku'],
+      //   performanceLevel: ,
+      inStock: product['inStock'],
+      capacity: product['RAM Capacity'] || '',
+      frequency: product['RAM Speed'],
+      ddr: product['productName'].indexOf('DDR4') > -1 ? 'DDR4' : 'DDR3',
+      isDesktop: product['productName'].indexOf('Desktop') > -1,
+      voltage: product['Voltage']
+    };
+  });
+}
+
+module.exports = { cpuDataMapper, motherboardDataMapper, memoryDataMapper };

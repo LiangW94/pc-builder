@@ -11,7 +11,7 @@ const { Cpu } = require('../db/model/index');
 async function findOrCreate(productList) {
   let createNumber = 0;
   const createProducts = [];
-  await Promise.all(
+  await Promise.allSettled(
     productList.map(async (product, i) => {
       const result = await Cpu.findOrCreate({
         where: { retailerSKU: product.retailerSKU },
@@ -32,7 +32,7 @@ async function findOrCreate(productList) {
  */
 async function updateData(productList) {
   let updatedRow = 0;
-  await Promise.all(
+  await Promise.allSettled(
     productList.map(async (product, i) => {
       const { name, brand, price, image, inStock } = product;
       const result = await Cpu.update(
@@ -58,7 +58,7 @@ async function findOneOrUpdate(productList, Model) {
   let updatedNumber = 0;
   const createdProducts = [];
   const updatedProducts = [];
-  await Promise.all(
+  await Promise.allSettled(
     productList.map(async (product, i) => {
       const result = await Model.find({ retailerSKU: product.retailerSKU });
       const isRecordExist = result.length > 0;

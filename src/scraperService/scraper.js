@@ -44,7 +44,7 @@ async function scrapProductDetail(category) {
 
     console.log('all links fetched');
 
-    await Promise.all(
+    await Promise.allSettled(
       allProductLinks.map((product, index) =>
         _scrapProductDetailFromLink(product, index)
       )
@@ -56,7 +56,10 @@ async function scrapProductDetail(category) {
   } catch (error) {
     console.log(error);
     console.log('fetch link error');
-    return new ErrorModel();
+    return new ErrorModel({
+      errno: 1,
+      message: error.message
+    });
   }
 }
 
@@ -143,7 +146,10 @@ async function _scrapProductDetailFromLink(product, index) {
   } catch (error) {
     console.log(error);
     console.log('fetch item error: ', product);
-    return new ErrorModel();
+    return new ErrorModel({
+      errno: 1,
+      message: error.message
+    });
   }
 }
 

@@ -2,7 +2,11 @@
  * @description fetch data controller
  */
 
-const { Cpu, Motherboard } = require('../db/schema/index');
+const {
+  CpuModel,
+  MotherboardModel,
+  MemoryModel
+} = require('../db/schema/index');
 const { SuccessModel, ErrorModel } = require('../model/ResModel');
 const { scrapProductDetail } = require('../scraperService/scraper');
 const { MSY_CONFIG } = require('../utils/constants');
@@ -13,14 +17,15 @@ const {
 } = require('../services/msy');
 const {
   cpuDataMapper,
-  motherboardDataMapper
+  motherboardDataMapper,
+  memoryDataMapper
 } = require('../services/formatter');
 
-async function fetchCpuDataMongoose() {
+async function fetchCpuData() {
   try {
     const productList = await scrapProductDetail(MSY_CONFIG.CATEGORY_ID.CPU);
     const formattedData = cpuDataMapper(productList.data);
-    const result = await findOneOrUpdate(formattedData, Cpu);
+    const result = await findOneOrUpdate(formattedData, CpuModel);
     return new SuccessModel(result);
   } catch (error) {
     console.log(error.message);
@@ -31,13 +36,28 @@ async function fetchCpuDataMongoose() {
   }
 }
 
-async function fetchMotherboardDataMongoose() {
+async function fetchMotherboardData() {
   try {
     const productList = await scrapProductDetail(
       MSY_CONFIG.CATEGORY_ID.MOTHERBOARD
     );
     const formattedData = motherboardDataMapper(productList.data);
-    const result = await findOneOrUpdate(formattedData, Motherboard);
+    const result = await findOneOrUpdate(formattedData, MotherboardModel);
+    return new SuccessModel(result);
+  } catch (error) {
+    console.log(error.message);
+    return new ErrorModel({
+      errno: 1,
+      message: error.message
+    });
+  }
+}
+
+async function fetchMemoryData() {
+  try {
+    const productList = await scrapProductDetail(MSY_CONFIG.CATEGORY_ID.MEMORY);
+    const formattedData = memoryDataMapper(productList.data);
+    const result = await findOneOrUpdate(formattedData, MemoryModel);
     return new SuccessModel(result);
   } catch (error) {
     console.log(error.message);
@@ -54,8 +74,8 @@ async function fetchCpuDataSequelize() {
     const productList = await scrapProductDetail(MSY_CONFIG.CATEGORY_ID.CPU);
     const formattedData = cpuDataMapper(productList.data);
 
-    const createdProduct = await findOrCreate(formattedCpuData);
-    const updatedProduct = await updateData(formattedCpuData);
+    const createdProduct = await findOrCreate(formattedData);
+    const updatedProduct = await updateData(formattedData);
     return new SuccessModel({ createdProduct, updatedProduct });
   } catch (error) {
     console.log(error.message);
@@ -68,6 +88,7 @@ async function fetchCpuDataSequelize() {
 
 module.exports = {
   fetchCpuDataSequelize,
-  fetchCpuDataMongoose,
-  fetchMotherboardDataMongoose
+  fetchCpuData,
+  fetchMotherboardData,
+  fetchMemoryData
 };
