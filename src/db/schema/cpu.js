@@ -10,7 +10,7 @@ const CpuSchema = new Schema({
   },
   category: {
     type: STRING,
-    required: true
+    default: 'cpu'
   },
   brand: {
     type: STRING,
@@ -51,5 +51,6 @@ const CpuSchema = new Schema({
     type: BOOLEAN
   }
 });
+
 const CpuModel = mongoose.model('Cpu', CpuSchema);
 module.exports = CpuModel;

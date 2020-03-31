@@ -11,7 +11,7 @@ const MotherboardSchema = new Schema({
   },
   category: {
     type: STRING,
-    required: true
+    default: 'motherboard'
   },
   brand: {
     type: STRING,

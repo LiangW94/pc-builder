@@ -6,7 +6,6 @@ function cpuDataMapper(rawData) {
   return rawData.map(product => {
     return {
       name: product['productName'],
-      category: 'cpu',
       brand:
         product['Brand'] ||
         product['CPU Brand'] ||
@@ -29,7 +28,6 @@ function motherboardDataMapper(rawData) {
   return rawData.map(product => {
     return {
       name: product['productName'],
-      category: 'motherboard',
       brand:
         product['Brand'] || product['productName'].split(' ')[0] || 'unbranded',
       price: product['price'],
@@ -55,7 +53,6 @@ function memoryDataMapper(rawData) {
   return rawData.map(product => {
     return {
       name: product['productName'],
-      category: 'memory',
       brand:
         product['Brand'] || product['productName'].split(' ')[0] || 'unbranded',
       price: product['price'],

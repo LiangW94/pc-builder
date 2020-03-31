@@ -11,7 +11,7 @@ const MemorySchema = new Schema({
   },
   category: {
     type: STRING,
-    required: true
+    default: 'memory'
   },
   brand: {
     type: STRING,
@@ -26,7 +26,7 @@ const MemorySchema = new Schema({
   },
   localRetailer: {
     type: STRING,
-    defaultValue: MSY
+    default: MSY
   },
   retailerId: {
     type: STRING,
