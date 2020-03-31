@@ -32,7 +32,8 @@ const Storage = seq.define('storage', {
     unique: true
   },
   retailerSKU: {
-    type: STRING
+    type: STRING,
+    allowNull: false
   },
   TDP: {
     type: STRING

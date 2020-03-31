@@ -37,7 +37,8 @@ const Cpu = seq.define('cpu', {
     unique: true
   },
   retailerSKU: {
-    type: STRING
+    type: STRING,
+    allowNull: false
   },
   TDP: {
     type: STRING

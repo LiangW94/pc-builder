@@ -32,7 +32,8 @@ const Memory = seq.define('memory', {
     unique: true
   },
   retailerSKU: {
-    type: STRING
+    type: STRING,
+    allowNull: false
   },
   TDP: {
     type: STRING

@@ -32,7 +32,8 @@ const GraphicsCard = seq.define('graphicsCard', {
     unique: true
   },
   retailerSKU: {
-    type: STRING
+    type: STRING,
+    allowNull: false
   },
   TDP: {
     type: STRING

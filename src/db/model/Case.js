@@ -32,7 +32,8 @@ const Case = seq.define('case', {
     unique: true
   },
   retailerSKU: {
-    type: STRING
+    type: STRING,
+    allowNull: false
   },
   TDP: {
     type: STRING

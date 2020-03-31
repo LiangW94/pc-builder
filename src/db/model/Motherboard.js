@@ -32,7 +32,8 @@ const Motherboard = seq.define('motherboard', {
     unique: true
   },
   retailerSKU: {
-    type: STRING
+    type: STRING,
+    allowNull: false
   },
   TDP: {
     type: STRING

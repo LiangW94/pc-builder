@@ -32,7 +32,8 @@ const PsuSchema = new Schema({
     required: true
   },
   retailerSKU: {
-    type: STRING
+    type: STRING,
+    required: true
   },
   TDP: {
     type: STRING

@@ -32,7 +32,8 @@ const Psu = seq.define('psu', {
     unique: true
   },
   retailerSKU: {
-    type: STRING
+    type: STRING,
+    allowNull: false
   },
   TDP: {
     type: STRING
