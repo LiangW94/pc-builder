@@ -34,8 +34,8 @@ const Motherboard = seq.define('motherboard', {
   retailerSKU: {
     type: STRING
   },
-  tpd: {
-    type: DECIMAL
+  TDP: {
+    type: STRING
   },
   performanceLevel: {
     type: STRING

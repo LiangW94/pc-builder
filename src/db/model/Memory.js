@@ -34,8 +34,8 @@ const Memory = seq.define('memory', {
   retailerSKU: {
     type: STRING
   },
-  tpd: {
-    type: DECIMAL
+  TDP: {
+    type: STRING
   },
   performanceLevel: {
     type: STRING

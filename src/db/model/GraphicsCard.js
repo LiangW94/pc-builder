@@ -34,8 +34,8 @@ const GraphicsCard = seq.define('graphicsCard', {
   retailerSKU: {
     type: STRING
   },
-  tpd: {
-    type: DECIMAL
+  TDP: {
+    type: STRING
   },
   performanceLevel: {
     type: STRING

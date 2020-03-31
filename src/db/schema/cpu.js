@@ -35,7 +35,7 @@ const CpuSchema = new Schema({
     type: STRING,
     required: true
   },
-  tpd: {
+  TDP: {
     type: STRING
   },
   performanceLevel: {

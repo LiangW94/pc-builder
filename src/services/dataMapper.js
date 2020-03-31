@@ -15,7 +15,7 @@ function cpuDataMapper(rawData) {
       image: product['image'],
       retailerId: product['sku_id'],
       retailerSKU: product['sku'],
-      tpd: product['TDP (Thermal Design Power)'],
+      TDP: product['TDP (Thermal Design Power)'],
       //   performanceLevel: ,
       inStock: product['inStock'],
       socket: product['AMD CPU Socket'] || product['Intel CPU Socket'] || '',

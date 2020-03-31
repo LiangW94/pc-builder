@@ -39,7 +39,7 @@ const Cpu = seq.define('cpu', {
   retailerSKU: {
     type: STRING
   },
-  tpd: {
+  TDP: {
     type: STRING
   },
   performanceLevel: {

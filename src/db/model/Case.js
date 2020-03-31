@@ -34,8 +34,8 @@ const Case = seq.define('case', {
   retailerSKU: {
     type: STRING
   },
-  tpd: {
-    type: DECIMAL
+  TDP: {
+    type: STRING
   },
   performanceLevel: {
     type: STRING

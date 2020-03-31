@@ -34,8 +34,8 @@ const Psu = seq.define('psu', {
   retailerSKU: {
     type: STRING
   },
-  tpd: {
-    type: DECIMAL
+  TDP: {
+    type: STRING
   },
   performanceLevel: {
     type: STRING
@@ -44,7 +44,7 @@ const Psu = seq.define('psu', {
     type: BOOLEAN
   },
   maximumPower: {
-    type: DECIMAL
+    type: STRING
   },
   fan: {
     type: STRING

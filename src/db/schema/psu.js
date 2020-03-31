@@ -34,7 +34,7 @@ const PsuSchema = new Schema({
   retailerSKU: {
     type: STRING
   },
-  tpd: {
+  TDP: {
     type: STRING
   },
   performanceLevel: {
