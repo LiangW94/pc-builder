@@ -1,53 +1,54 @@
 const mongoose = require('../mongodb');
 const { MSY } = require('../../utils/constants');
+const { BOOLEAN, STRING, DECIMAL } = require('../types');
 var Schema = mongoose.Schema;
 
 const CpuSchema = new Schema({
   name: {
-    type: String,
+    type: STRING,
     required: true
   },
   category: {
-    type: String,
+    type: STRING,
     required: true
   },
   brand: {
-    type: String,
+    type: STRING,
     required: true
   },
   price: {
-    type: Number,
+    type: DECIMAL,
     required: true
   },
   image: {
-    type: String
+    type: STRING
   },
   localRetailer: {
-    type: String,
+    type: STRING,
     default: MSY
   },
   retailerId: {
-    type: String,
+    type: STRING,
     required: true
   },
   retailerSKU: {
-    type: String,
+    type: STRING,
     required: true
   },
   tpd: {
-    type: String
+    type: STRING
   },
   performanceLevel: {
-    type: String
+    type: STRING
   },
   inStock: {
-    type: Boolean
+    type: BOOLEAN
   },
   socket: {
-    type: String
+    type: STRING
   },
   integratedGPU: {
-    type: Boolean
+    type: BOOLEAN
   }
 });
 const CpuModel = mongoose.model('Cpu', CpuSchema);
