@@ -128,11 +128,30 @@ function psuDataMapper(rawData) {
   });
 }
 
+function storageDataMapper(rawData) {
+  return rawData.map(product => {
+    return {
+      name: product['productName'],
+      brand:
+        product['Brand'] || product['productName'].split(' ')[0] || 'unbranded',
+      price: product['price'],
+      image: product['image'],
+      retailerId: product['sku_id'],
+      retailerSKU: product['sku'],
+      inStock: product['inStock'],
+      capacity: product['HDD Capacity'],
+      interface: product['HDD Interface'],
+      formFactor: product['Hard Drive Form Factor']
+    };
+  });
+}
+
 module.exports = {
   cpuDataMapper,
   motherboardDataMapper,
   memoryDataMapper,
   caseDataMapper,
   gpuDataMapper,
-  psuDataMapper
+  psuDataMapper,
+  storageDataMapper
 };
