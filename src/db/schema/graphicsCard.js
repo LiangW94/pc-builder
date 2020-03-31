@@ -1,35 +1,35 @@
-const seq = require('../sequelize');
-const { BOOLEAN, STRING, DECIMAL } = require('../types');
+const mongoose = require('../mongodb');
 const { MSY } = require('../../utils/constants');
+const { BOOLEAN, STRING, DECIMAL } = require('../types');
+var Schema = mongoose.Schema;
 
-const GraphicsCard = seq.define('graphicsCard', {
+const GpuSchema = new Schema({
   name: {
     type: STRING,
-    allowNull: false
+    required: true
   },
   category: {
     type: STRING,
-    allowNull: false
+    default: 'graphicsCard'
   },
   brand: {
     type: STRING,
-    allowNull: false
+    required: true
   },
   price: {
     type: DECIMAL,
-    allowNull: false
+    required: true
   },
   image: {
     type: STRING
   },
   localRetailer: {
     type: STRING,
-    defaultValue: MSY
+    default: MSY
   },
   retailerId: {
     type: STRING,
-    allowNull: false,
-    unique: true
+    required: true
   },
   retailerSKU: {
     type: STRING
@@ -63,4 +63,5 @@ const GraphicsCard = seq.define('graphicsCard', {
   }
 });
 
-module.exports = GraphicsCard;
+const GpuModel = mongoose.model('GraphicsCard', GpuSchema);
+module.exports = GpuModel;

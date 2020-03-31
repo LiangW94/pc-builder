@@ -88,9 +88,30 @@ function caseDataMapper(rawData) {
   });
 }
 
+function gpuDataMapper(rawData) {
+  return rawData.map(product => {
+    return {
+      name: product['productName'],
+      brand:
+        product['Brand'] || product['productName'].split(' ')[0] || 'unbranded',
+      price: product['price'],
+      image: product['image'],
+      retailerId: product['sku_id'],
+      retailerSKU: product['sku'],
+      inStock: product['inStock'],
+      memorySize: product['VGA Memory Size'],
+      memoryType: product['Memory Type'],
+      chipsetManufacture: product['Chipset Manufacturer'],
+      GPUseries: product['GPU SERIES'],
+      GPU: product['GPU']
+    };
+  });
+}
+
 module.exports = {
   cpuDataMapper,
   motherboardDataMapper,
   memoryDataMapper,
-  caseDataMapper
+  caseDataMapper,
+  gpuDataMapper
 };

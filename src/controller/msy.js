@@ -5,7 +5,8 @@
 const {
   CpuModel,
   MotherboardModel,
-  MemoryModel
+  MemoryModel,
+  GpuModel
 } = require('../db/schema/index');
 const { SuccessModel, ErrorModel } = require('../model/ResModel');
 const { scrapProductDetail } = require('../scraperService/scraper');
@@ -19,7 +20,8 @@ const {
   cpuDataMapper,
   motherboardDataMapper,
   memoryDataMapper,
-  caseDataMapper
+  caseDataMapper,
+  gpuDataMapper
 } = require('../services/dataMapper');
 
 async function fetchCpuData() {
@@ -84,6 +86,23 @@ async function fetchCaseData() {
   }
 }
 
+async function fetchGpuData() {
+  try {
+    const productList = await scrapProductDetail(
+      MSY_CONFIG.CATEGORY_ID.GRAPHICS_CARD
+    );
+    const formattedData = gpuDataMapper(productList.data);
+    const result = await findOneOrUpdate(formattedData, GpuModel);
+    return new SuccessModel(result);
+  } catch (error) {
+    console.log(error.message);
+    return new ErrorModel({
+      errno: 1,
+      message: error.message
+    });
+  }
+}
+
 // Legacy method
 async function fetchCpuDataSequelize() {
   try {
@@ -107,5 +126,6 @@ module.exports = {
   fetchCpuData,
   fetchMotherboardData,
   fetchMemoryData,
-  fetchCaseData
+  fetchCaseData,
+  fetchGpuData
 };
