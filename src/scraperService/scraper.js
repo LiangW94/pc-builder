@@ -98,7 +98,9 @@ async function _fetchPage(category, pageNumber = null) {
  */
 async function _scrapProductDetailFromLink(product, index) {
   try {
-    const productDetailPage = await axios.get(product.href);
+    const productDetailPage = await axios.get(product.href, {
+      timeout: 180000
+    });
     const $ = cheerio.load(productDetailPage.data);
 
     // scrap name sku id price
