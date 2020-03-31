@@ -1,17 +1,17 @@
-const Cpu = require('./Cpu');
-const Motherboard = require('./Motherboard');
+const CpuModel = require('./cpu');
+const MotherboardModel = require('./motherboard');
+const MemoryModel = require('./memory');
 // const Case = require('./Case');
 // const GraphicsCard = require('./GraphicsCard');
-// const Memory = require('./Memory');
 // const Psu = require('./Psu');
 // const Storage = require('./Storage');
 
 module.exports = {
-  Cpu,
-  Motherboard
+  CpuModel,
+  MotherboardModel,
+  MemoryModel
   //   Case,
   //   GraphicsCard,
-  //   Memory,
   //   Psu,
   //   Storage
 };
