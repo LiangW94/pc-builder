@@ -83,8 +83,9 @@ async function findOneOrUpdate(productList, Model) {
       }
     })
   );
-  console.log(createNumber, ' created ,', updatedNumber, ' updated');
-  return { createdProducts, updatedProducts };
+  const dataBaseResult = `${createNumber} created, ${updatedNumber} updated'`;
+  console.log(dataBaseResult);
+  return { dataBaseResult, createdProducts, updatedProducts };
 }
 
 module.exports = {

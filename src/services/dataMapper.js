@@ -70,4 +70,27 @@ function memoryDataMapper(rawData) {
   });
 }
 
-module.exports = { cpuDataMapper, motherboardDataMapper, memoryDataMapper };
+function caseDataMapper(rawData) {
+  return rawData.map(product => {
+    return {
+      name: product['productName'],
+      brand:
+        product['Brand'] || product['productName'].split(' ')[0] || 'unbranded',
+      price: product['price'],
+      image: product['image'],
+      retailerId: product['sku_id'],
+      retailerSKU: product['sku'],
+      inStock: product['inStock'],
+      size: product['Case Type'],
+      withPowerSupply: product['With Power Supply'] === 'Yes',
+      withSidePanelWindow: product['Side Panel Window'] !== 'No'
+    };
+  });
+}
+
+module.exports = {
+  cpuDataMapper,
+  motherboardDataMapper,
+  memoryDataMapper,
+  caseDataMapper
+};

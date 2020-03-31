@@ -18,8 +18,9 @@ const {
 const {
   cpuDataMapper,
   motherboardDataMapper,
-  memoryDataMapper
-} = require('../services/formatter');
+  memoryDataMapper,
+  caseDataMapper
+} = require('../services/dataMapper');
 
 async function fetchCpuData() {
   try {
@@ -68,6 +69,21 @@ async function fetchMemoryData() {
   }
 }
 
+async function fetchCaseData() {
+  try {
+    const productList = await scrapProductDetail(MSY_CONFIG.CATEGORY_ID.CASE);
+    const formattedData = caseDataMapper(productList.data);
+    const result = await findOneOrUpdate(formattedData, MemoryModel);
+    return new SuccessModel(result);
+  } catch (error) {
+    console.log(error.message);
+    return new ErrorModel({
+      errno: 1,
+      message: error.message
+    });
+  }
+}
+
 // Legacy method
 async function fetchCpuDataSequelize() {
   try {
@@ -90,5 +106,6 @@ module.exports = {
   fetchCpuDataSequelize,
   fetchCpuData,
   fetchMotherboardData,
-  fetchMemoryData
+  fetchMemoryData,
+  fetchCaseData
 };

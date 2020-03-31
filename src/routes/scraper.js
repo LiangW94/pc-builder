@@ -4,7 +4,8 @@
 const {
   fetchCpuData,
   fetchMotherboardData,
-  fetchMemoryData
+  fetchMemoryData,
+  fetchCaseData
 } = require('../controller/msy');
 
 const router = require('koa-router')();
@@ -15,7 +16,8 @@ router.get('/fetchAll', async function(ctx, next) {
   const cpuResult = await fetchCpuData();
   const motherboardResult = await fetchMotherboardData();
   const memoryResult = await fetchMemoryData();
-  ctx.body = [cpuResult, motherboardResult, memoryResult];
+  const caseResult = await fetchCaseData();
+  ctx.body = [cpuResult, motherboardResult, memoryResult, caseResult];
 });
 
 router.get('/cpu', async function(ctx, next) {
@@ -30,6 +32,11 @@ router.get('/motherboard', async function(ctx, next) {
 
 router.get('/memory', async function(ctx, next) {
   const result = await fetchMemoryData();
+  ctx.body = result;
+});
+
+router.get('/case', async function(ctx, next) {
+  const result = await fetchCaseData();
   ctx.body = result;
 });
 

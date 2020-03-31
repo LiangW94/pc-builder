@@ -25,12 +25,11 @@ const CaseSchema = new Schema({
   },
   localRetailer: {
     type: STRING,
-    defaultValue: MSY
+    default: MSY
   },
   retailerId: {
     type: STRING,
-    required: true,
-    unique: true
+    required: true
   },
   retailerSKU: {
     type: STRING
@@ -46,6 +45,12 @@ const CaseSchema = new Schema({
   },
   feature: {
     type: STRING
+  },
+  withPowerSupply: {
+    type: BOOLEAN
+  },
+  withSidePanelWindow: {
+    type: BOOLEAN
   }
 });
 

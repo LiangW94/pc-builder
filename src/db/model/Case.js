@@ -48,6 +48,12 @@ const Case = seq.define('case', {
   },
   feature: {
     type: STRING
+  },
+  withPowerSupply: {
+    type: BOOLEAN
+  },
+  withSidePanelWindow: {
+    type: BOOLEAN
   }
 });
 
