@@ -108,10 +108,31 @@ function gpuDataMapper(rawData) {
   });
 }
 
+function psuDataMapper(rawData) {
+  return rawData.map(product => {
+    return {
+      name: product['productName'],
+      brand:
+        product['Brand'] || product['productName'].split(' ')[0] || 'unbranded',
+      price: product['price'],
+      image: product['image'],
+      retailerId: product['sku_id'],
+      retailerSKU: product['sku'],
+      inStock: product['inStock'],
+      maximumPower: product['Maximum Power'],
+      fan: product['PSU Fans'],
+      efficiency: product['Efficiency'],
+      certified: product['Energy-Efficient'],
+      inputVoltage: product['PSU Input Voltage']
+    };
+  });
+}
+
 module.exports = {
   cpuDataMapper,
   motherboardDataMapper,
   memoryDataMapper,
   caseDataMapper,
-  gpuDataMapper
+  gpuDataMapper,
+  psuDataMapper
 };

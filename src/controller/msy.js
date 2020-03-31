@@ -6,7 +6,9 @@ const {
   CpuModel,
   MotherboardModel,
   MemoryModel,
-  GpuModel
+  CaseModel,
+  GpuModel,
+  PsuModel
 } = require('../db/schema/index');
 const { SuccessModel, ErrorModel } = require('../model/ResModel');
 const { scrapProductDetail } = require('../scraperService/scraper');
@@ -21,7 +23,8 @@ const {
   motherboardDataMapper,
   memoryDataMapper,
   caseDataMapper,
-  gpuDataMapper
+  gpuDataMapper,
+  psuDataMapper
 } = require('../services/dataMapper');
 
 async function fetchCpuData() {
@@ -75,7 +78,7 @@ async function fetchCaseData() {
   try {
     const productList = await scrapProductDetail(MSY_CONFIG.CATEGORY_ID.CASE);
     const formattedData = caseDataMapper(productList.data);
-    const result = await findOneOrUpdate(formattedData, MemoryModel);
+    const result = await findOneOrUpdate(formattedData, CaseModel);
     return new SuccessModel(result);
   } catch (error) {
     console.log(error.message);
@@ -93,6 +96,21 @@ async function fetchGpuData() {
     );
     const formattedData = gpuDataMapper(productList.data);
     const result = await findOneOrUpdate(formattedData, GpuModel);
+    return new SuccessModel(result);
+  } catch (error) {
+    console.log(error.message);
+    return new ErrorModel({
+      errno: 1,
+      message: error.message
+    });
+  }
+}
+
+async function fetchPsuData() {
+  try {
+    const productList = await scrapProductDetail(MSY_CONFIG.CATEGORY_ID.PSU);
+    const formattedData = psuDataMapper(productList.data);
+    const result = await findOneOrUpdate(formattedData, PsuModel);
     return new SuccessModel(result);
   } catch (error) {
     console.log(error.message);
@@ -127,5 +145,6 @@ module.exports = {
   fetchMotherboardData,
   fetchMemoryData,
   fetchCaseData,
-  fetchGpuData
+  fetchGpuData,
+  fetchPsuData
 };
