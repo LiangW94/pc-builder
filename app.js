@@ -6,6 +6,7 @@ const bodyparser = require('koa-bodyparser');
 const logger = require('koa-logger');
 
 const fetchData = require('./src/routes/scraper');
+const query = require('./src/routes/query');
 
 // error handler
 onerror(app);
@@ -30,6 +31,7 @@ app.use(async (ctx, next) => {
 
 // routes
 app.use(fetchData.routes(), fetchData.allowedMethods());
+app.use(query.routes(), query.allowedMethods());
 
 // error-handling
 app.on('error', (err, ctx) => {
