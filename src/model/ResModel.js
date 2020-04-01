@@ -6,7 +6,11 @@ class BassModel {
   constructor({ errno, data, message }) {
     this.errno = errno;
     if (data) {
-      this.data = data;
+      if (data instanceof Array) {
+        this.data = { resultNumber: data.length, data };
+      } else {
+        this.data = data;
+      }
     }
     if (message) {
       this.message = message;
