@@ -21,7 +21,9 @@ async function searchByName(keyword, category) {
       storage: StorageModel
     };
     const searchKeyWord = new RegExp(keyword, 'i');
-    const searchPayload = keyword ? { name: searchKeyWord } : {};
+    const searchPayload = keyword
+      ? { $or: [{ name: searchKeyWord }, { brand: searchKeyWord }] }
+      : {};
 
     if (category) {
       const Model = modelMapper[category];
