@@ -63,11 +63,10 @@ async function findOneOrUpdate(productList, Model) {
       const result = await Model.find({ retailerSKU: product.retailerSKU });
       const isRecordExist = result.length > 0;
       if (isRecordExist) {
-        const { name, brand, price, image, inStock } = product;
+        const { brand, price, image, inStock } = product;
         await Model.updateOne(
           { retailerSKU: product.retailerSKU },
           {
-            name,
             brand,
             price,
             image,
