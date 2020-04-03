@@ -8,10 +8,10 @@ const sanitizeHtml = require('sanitize-html');
 
 router.prefix('/query');
 
-router.get('/search', async function(ctx, next) {
+router.post('/search', async function(ctx, next) {
   const body = ctx.request.body;
-  const keyword = sanitizeHtml(body.keyword);
-  const category = sanitizeHtml(body.category);
+  const keyword = body.keyword ? sanitizeHtml(body.keyword) : null;
+  const category = body.category ? sanitizeHtml(body.category) : null;
   const result = await searchByName(keyword, category);
   ctx.body = result;
 });
