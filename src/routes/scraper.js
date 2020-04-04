@@ -8,14 +8,14 @@ const {
   fetchCaseData,
   fetchGpuData,
   fetchPsuData,
-  fetchStorageData
+  fetchStorageData,
 } = require('../controller/msy');
 
 const router = require('koa-router')();
 
-router.prefix('/scraper');
+router.prefix('/api/scraper');
 
-router.get('/fetchAll', async function(ctx, next) {
+router.get('/fetchAll', async function (ctx, next) {
   const cpuResult = await fetchCpuData();
   const motherboardResult = await fetchMotherboardData();
   const memoryResult = await fetchMemoryData();
@@ -30,41 +30,41 @@ router.get('/fetchAll', async function(ctx, next) {
     caseResult,
     gpuResult,
     psuResult,
-    storageResult
+    storageResult,
   ];
 });
 
-router.get('/cpu', async function(ctx, next) {
+router.get('/cpu', async function (ctx, next) {
   const result = await fetchCpuData();
   ctx.body = result;
 });
 
-router.get('/motherboard', async function(ctx, next) {
+router.get('/motherboard', async function (ctx, next) {
   const result = await fetchMotherboardData();
   ctx.body = result;
 });
 
-router.get('/memory', async function(ctx, next) {
+router.get('/memory', async function (ctx, next) {
   const result = await fetchMemoryData();
   ctx.body = result;
 });
 
-router.get('/case', async function(ctx, next) {
+router.get('/case', async function (ctx, next) {
   const result = await fetchCaseData();
   ctx.body = result;
 });
 
-router.get('/gpu', async function(ctx, next) {
+router.get('/gpu', async function (ctx, next) {
   const result = await fetchGpuData();
   ctx.body = result;
 });
 
-router.get('/psu', async function(ctx, next) {
+router.get('/psu', async function (ctx, next) {
   const result = await fetchPsuData();
   ctx.body = result;
 });
 
-router.get('/storage', async function(ctx, next) {
+router.get('/storage', async function (ctx, next) {
   const result = await fetchStorageData();
   ctx.body = result;
 });
