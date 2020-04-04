@@ -7,17 +7,18 @@ if (isTest) {
 }
 
 // product only: connection pool
-if (isProd)
-  conf.pool = {
-    max: 5, // max connections in the pool
-    mix: 0,
-    idle: 10000 // release the pool if not used in 10s
-  };
+// if (isProd) {
+//   conf.pool = {
+//     max: 5, // max connections in the pool
+//     mix: 0,
+//     idle: 10000, // release the pool if not used in 10s
+//   };
+// }
 
 const { host, user, password, database } = MYSQL_CONFIG;
 const conf = {
   host,
-  dialect: 'mysql'
+  dialect: 'mysql',
 };
 const seq = new Sequelize(database, user, password, conf);
 module.exports = seq;
