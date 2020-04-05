@@ -1,64 +1,67 @@
 const mongoose = require('../mongodb');
 const { MSY } = require('../../utils/constants');
-const { BOOLEAN, STRING, DECIMAL } = require('../types');
+const { BOOLEAN, STRING, DECIMAL, BUFFER } = require('../types');
 var Schema = mongoose.Schema;
 
 const StorageSchema = new Schema({
   name: {
     type: STRING,
-    require: true
+    require: true,
   },
   category: {
     type: STRING,
-    default: 'storage'
+    default: 'storage',
   },
   brand: {
     type: STRING,
-    require: true
+    require: true,
   },
   price: {
     type: DECIMAL,
-    require: true
+    require: true,
   },
   image: {
-    type: STRING
+    type: STRING,
+  },
+  encodedImage: {
+    type: BUFFER,
   },
   localRetailer: {
     type: STRING,
-    default: MSY
+    default: MSY,
   },
   retailerId: {
     type: STRING,
-    require: true
+    require: true,
   },
   retailerSKU: {
     type: STRING,
-    required: true
+    required: true,
   },
   TDP: {
-    type: STRING
+    type: STRING,
   },
   performanceLevel: {
-    type: STRING
+    type: STRING,
   },
   inStock: {
-    type: BOOLEAN
+    type: BOOLEAN,
   },
   capacity: {
-    type: STRING
+    type: STRING,
   },
   interface: {
-    type: STRING
+    type: STRING,
   },
   formFactor: {
-    type: STRING
+    type: STRING,
   },
   rpm: {
-    type: STRING
+    type: STRING,
   },
   cache: {
-    type: STRING
-  }
+    type: STRING,
+  },
 });
 
 const StorageModel = mongoose.model('Storage', StorageSchema);

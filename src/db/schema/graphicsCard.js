@@ -1,67 +1,70 @@
 const mongoose = require('../mongodb');
 const { MSY } = require('../../utils/constants');
-const { BOOLEAN, STRING, DECIMAL } = require('../types');
+const { BOOLEAN, STRING, DECIMAL, BUFFER } = require('../types');
 var Schema = mongoose.Schema;
 
 const GpuSchema = new Schema({
   name: {
     type: STRING,
-    required: true
+    required: true,
   },
   category: {
     type: STRING,
-    default: 'graphicsCard'
+    default: 'graphicsCard',
   },
   brand: {
     type: STRING,
-    required: true
+    required: true,
   },
   price: {
     type: DECIMAL,
-    required: true
+    required: true,
   },
   image: {
-    type: STRING
+    type: STRING,
+  },
+  encodedImage: {
+    type: BUFFER,
   },
   localRetailer: {
     type: STRING,
-    default: MSY
+    default: MSY,
   },
   retailerId: {
     type: STRING,
-    required: true
+    required: true,
   },
   retailerSKU: {
     type: STRING,
-    required: true
+    required: true,
   },
   TDP: {
-    type: STRING
+    type: STRING,
   },
   performanceLevel: {
-    type: STRING
+    type: STRING,
   },
   inStock: {
-    type: BOOLEAN
+    type: BOOLEAN,
   },
   memorySize: {
-    type: STRING
+    type: STRING,
   },
   memoryType: {
-    type: STRING
+    type: STRING,
   },
   chipsetManufacture: {
-    type: STRING
+    type: STRING,
   },
   GPUseries: {
-    type: STRING
+    type: STRING,
   },
   GPU: {
-    type: STRING
+    type: STRING,
   },
   gamingRecommended: {
-    type: BOOLEAN
-  }
+    type: BOOLEAN,
+  },
 });
 
 const GpuModel = mongoose.model('GraphicsCard', GpuSchema);

@@ -1,65 +1,68 @@
 const mongoose = require('../mongodb');
 const { MSY } = require('../../utils/constants');
-const { BOOLEAN, STRING, DECIMAL } = require('../types');
+const { BOOLEAN, STRING, DECIMAL, BUFFER } = require('../types');
 
 var Schema = mongoose.Schema;
 
 const MotherboardSchema = new Schema({
   name: {
     type: STRING,
-    required: true
+    required: true,
   },
   category: {
     type: STRING,
-    default: 'motherboard'
+    default: 'motherboard',
   },
   brand: {
     type: STRING,
-    required: true
+    required: true,
   },
   price: {
     type: DECIMAL,
-    required: true
+    required: true,
   },
   image: {
-    type: STRING
+    type: STRING,
+  },
+  encodedImage: {
+    type: BUFFER,
   },
   localRetailer: {
     type: STRING,
-    default: MSY
+    default: MSY,
   },
   retailerId: {
     type: STRING,
-    required: true
+    required: true,
   },
   retailerSKU: {
     type: STRING,
-    required: true
+    required: true,
   },
   TDP: {
-    type: STRING
+    type: STRING,
   },
   performanceLevel: {
-    type: STRING
+    type: STRING,
   },
   inStock: {
-    type: BOOLEAN
+    type: BOOLEAN,
   },
   socket: {
-    type: STRING
+    type: STRING,
   },
   chipset: {
-    type: STRING
+    type: STRING,
   },
   supportM2: {
-    type: BOOLEAN
+    type: BOOLEAN,
   },
   size: {
-    type: STRING
+    type: STRING,
   },
   wirelessLAN: {
-    type: BOOLEAN
-  }
+    type: BOOLEAN,
+  },
 });
 const MotherboardModel = mongoose.model('Motherboard', MotherboardSchema);
 module.exports = MotherboardModel;

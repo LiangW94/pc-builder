@@ -3,7 +3,7 @@
  */
 
 function cpuDataMapper(rawData) {
-  return rawData.map(product => {
+  return rawData.map((product) => {
     return {
       name: product['productName'],
       brand:
@@ -13,25 +13,27 @@ function cpuDataMapper(rawData) {
         'unbranded',
       price: product['price'],
       image: product['image'],
+      encodedImage: product['encodedImage'],
       retailerId: product['sku_id'],
       retailerSKU: product['sku'],
       TDP: product['TDP (Thermal Design Power)'],
       //   performanceLevel: ,
       inStock: product['inStock'],
       socket: product['AMD CPU Socket'] || product['Intel CPU Socket'] || '',
-      integratedGPU: product['Discrete Graphics Required'] === 'No'
+      integratedGPU: product['Discrete Graphics Required'] === 'No',
     };
   });
 }
 
 function motherboardDataMapper(rawData) {
-  return rawData.map(product => {
+  return rawData.map((product) => {
     return {
       name: product['productName'],
       brand:
         product['Brand'] || product['productName'].split(' ')[0] || 'unbranded',
       price: product['price'],
       image: product['image'],
+      encodedImage: product['encodedImage'],
       retailerId: product['sku_id'],
       retailerSKU: product['sku'],
       //   performanceLevel: ,
@@ -44,19 +46,20 @@ function motherboardDataMapper(rawData) {
       chipset: product['Chipset'] || '',
       supportM2: product['M.2'] !== undefined,
       size: product['Form Factor'],
-      wirelessLAN: product['Wireless LAN'] !== undefined
+      wirelessLAN: product['Wireless LAN'] !== undefined,
     };
   });
 }
 
 function memoryDataMapper(rawData) {
-  return rawData.map(product => {
+  return rawData.map((product) => {
     return {
       name: product['productName'],
       brand:
         product['Brand'] || product['productName'].split(' ')[0] || 'unbranded',
       price: product['price'],
       image: product['image'],
+      encodedImage: product['encodedImage'],
       retailerId: product['sku_id'],
       retailerSKU: product['sku'],
       //   performanceLevel: ,
@@ -65,37 +68,39 @@ function memoryDataMapper(rawData) {
       frequency: product['RAM Speed'],
       ddr: product['productName'].indexOf('DDR4') > -1 ? 'DDR4' : 'DDR3',
       isDesktop: product['productName'].indexOf('Desktop') > -1,
-      voltage: product['Voltage']
+      voltage: product['Voltage'],
     };
   });
 }
 
 function caseDataMapper(rawData) {
-  return rawData.map(product => {
+  return rawData.map((product) => {
     return {
       name: product['productName'],
       brand:
         product['Brand'] || product['productName'].split(' ')[0] || 'unbranded',
       price: product['price'],
       image: product['image'],
+      encodedImage: product['encodedImage'],
       retailerId: product['sku_id'],
       retailerSKU: product['sku'],
       inStock: product['inStock'],
       size: product['Case Type'],
       withPowerSupply: product['With Power Supply'] === 'Yes',
-      withSidePanelWindow: product['Side Panel Window'] !== 'No'
+      withSidePanelWindow: product['Side Panel Window'] !== 'No',
     };
   });
 }
 
 function gpuDataMapper(rawData) {
-  return rawData.map(product => {
+  return rawData.map((product) => {
     return {
       name: product['productName'],
       brand:
         product['Brand'] || product['productName'].split(' ')[0] || 'unbranded',
       price: product['price'],
       image: product['image'],
+      encodedImage: product['encodedImage'],
       retailerId: product['sku_id'],
       retailerSKU: product['sku'],
       inStock: product['inStock'],
@@ -103,19 +108,20 @@ function gpuDataMapper(rawData) {
       memoryType: product['Memory Type'],
       chipsetManufacture: product['Chipset Manufacturer'],
       GPUseries: product['GPU SERIES'],
-      GPU: product['GPU']
+      GPU: product['GPU'],
     };
   });
 }
 
 function psuDataMapper(rawData) {
-  return rawData.map(product => {
+  return rawData.map((product) => {
     return {
       name: product['productName'],
       brand:
         product['Brand'] || product['productName'].split(' ')[0] || 'unbranded',
       price: product['price'],
       image: product['image'],
+      encodedImage: product['encodedImage'],
       retailerId: product['sku_id'],
       retailerSKU: product['sku'],
       inStock: product['inStock'],
@@ -123,25 +129,26 @@ function psuDataMapper(rawData) {
       fan: product['PSU Fans'],
       efficiency: product['Efficiency'],
       certified: product['Energy-Efficient'],
-      inputVoltage: product['PSU Input Voltage']
+      inputVoltage: product['PSU Input Voltage'],
     };
   });
 }
 
 function storageDataMapper(rawData) {
-  return rawData.map(product => {
+  return rawData.map((product) => {
     return {
       name: product['productName'],
       brand:
         product['Brand'] || product['productName'].split(' ')[0] || 'unbranded',
       price: product['price'],
       image: product['image'],
+      encodedImage: product['encodedImage'],
       retailerId: product['sku_id'],
       retailerSKU: product['sku'],
       inStock: product['inStock'],
       capacity: product['HDD Capacity'],
       interface: product['HDD Interface'],
-      formFactor: product['Hard Drive Form Factor']
+      formFactor: product['Hard Drive Form Factor'],
     };
   });
 }
@@ -153,5 +160,5 @@ module.exports = {
   caseDataMapper,
   gpuDataMapper,
   psuDataMapper,
-  storageDataMapper
+  storageDataMapper,
 };

@@ -15,7 +15,7 @@ async function findOrCreate(productList) {
     productList.map(async (product, i) => {
       const result = await Cpu.findOrCreate({
         where: { retailerSKU: product.retailerSKU },
-        defaults: product
+        defaults: product,
       });
       if (result[1]) {
         createNumber++, createProducts.push(result[0].dataValues);
@@ -38,7 +38,7 @@ async function updateData(productList) {
       const result = await Cpu.update(
         { name, brand, price, image, inStock },
         {
-          where: { retailerSKU: product.retailerSKU }
+          where: { retailerSKU: product.retailerSKU },
         }
       );
       result[0] > 0 && updatedRow++;
@@ -63,14 +63,15 @@ async function findOneOrUpdate(productList, Model) {
       const result = await Model.find({ retailerSKU: product.retailerSKU });
       const isRecordExist = result.length > 0;
       if (isRecordExist) {
-        const { brand, price, image, inStock } = product;
+        const { brand, price, image, encodedImage, inStock } = product;
         await Model.updateOne(
           { retailerSKU: product.retailerSKU },
           {
             brand,
             price,
             image,
-            inStock
+            encodedImage,
+            inStock,
           }
         );
         updatedNumber++;
@@ -90,5 +91,5 @@ async function findOneOrUpdate(productList, Model) {
 module.exports = {
   findOrCreate,
   updateData,
-  findOneOrUpdate
+  findOneOrUpdate,
 };

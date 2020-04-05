@@ -1,58 +1,61 @@
 const mongoose = require('../mongodb');
 const { MSY } = require('../../utils/constants');
-const { BOOLEAN, STRING, DECIMAL } = require('../types');
+const { BOOLEAN, STRING, DECIMAL, BUFFER } = require('../types');
 var Schema = mongoose.Schema;
 
 const CaseSchema = new Schema({
   name: {
     type: STRING,
-    required: true
+    required: true,
   },
   category: {
     type: STRING,
-    default: 'case'
+    default: 'case',
   },
   brand: {
     type: STRING,
-    required: true
+    required: true,
   },
   price: {
     type: DECIMAL,
-    required: true
+    required: true,
   },
   image: {
-    type: STRING
+    type: STRING,
+  },
+  encodedImage: {
+    type: BUFFER,
   },
   localRetailer: {
     type: STRING,
-    default: MSY
+    default: MSY,
   },
   retailerId: {
     type: STRING,
-    required: true
+    required: true,
   },
   retailerSKU: {
     type: STRING,
-    required: true
+    required: true,
   },
   performanceLevel: {
-    type: STRING
+    type: STRING,
   },
   inStock: {
-    type: BOOLEAN
+    type: BOOLEAN,
   },
   size: {
-    type: STRING
+    type: STRING,
   },
   feature: {
-    type: STRING
+    type: STRING,
   },
   withPowerSupply: {
-    type: BOOLEAN
+    type: BOOLEAN,
   },
   withSidePanelWindow: {
-    type: BOOLEAN
-  }
+    type: BOOLEAN,
+  },
 });
 
 const CaseModel = mongoose.model('Case', CaseSchema);

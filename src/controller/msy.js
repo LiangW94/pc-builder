@@ -9,7 +9,7 @@ const {
   CaseModel,
   GpuModel,
   PsuModel,
-  StorageModel
+  StorageModel,
 } = require('../db/schema/index');
 const { SuccessModel, ErrorModel } = require('../model/ResModel');
 const { scrapProductDetail } = require('../scraperService/scraper');
@@ -17,7 +17,7 @@ const { MSY_CONFIG } = require('../utils/constants');
 const {
   findOrCreate,
   updateData,
-  findOneOrUpdate
+  findOneOrUpdate,
 } = require('../services/msy');
 const {
   cpuDataMapper,
@@ -26,20 +26,20 @@ const {
   caseDataMapper,
   gpuDataMapper,
   psuDataMapper,
-  storageDataMapper
+  storageDataMapper,
 } = require('../services/dataMapper');
 
 async function fetchCpuData() {
   try {
     const productList = await scrapProductDetail(MSY_CONFIG.CATEGORY_ID.CPU);
-    const formattedData = cpuDataMapper(productList.data);
+    const formattedData = cpuDataMapper(productList.data.data);
     const result = await findOneOrUpdate(formattedData, CpuModel);
     return new SuccessModel(result);
   } catch (error) {
     console.log(error.message);
     return new ErrorModel({
       errno: 1,
-      message: error.message
+      message: error.message,
     });
   }
 }
@@ -49,14 +49,14 @@ async function fetchMotherboardData() {
     const productList = await scrapProductDetail(
       MSY_CONFIG.CATEGORY_ID.MOTHERBOARD
     );
-    const formattedData = motherboardDataMapper(productList.data);
+    const formattedData = motherboardDataMapper(productList.data.data);
     const result = await findOneOrUpdate(formattedData, MotherboardModel);
     return new SuccessModel(result);
   } catch (error) {
     console.log(error.message);
     return new ErrorModel({
       errno: 1,
-      message: error.message
+      message: error.message,
     });
   }
 }
@@ -64,14 +64,14 @@ async function fetchMotherboardData() {
 async function fetchMemoryData() {
   try {
     const productList = await scrapProductDetail(MSY_CONFIG.CATEGORY_ID.MEMORY);
-    const formattedData = memoryDataMapper(productList.data);
+    const formattedData = memoryDataMapper(productList.data.data);
     const result = await findOneOrUpdate(formattedData, MemoryModel);
     return new SuccessModel(result);
   } catch (error) {
     console.log(error.message);
     return new ErrorModel({
       errno: 1,
-      message: error.message
+      message: error.message,
     });
   }
 }
@@ -79,14 +79,14 @@ async function fetchMemoryData() {
 async function fetchCaseData() {
   try {
     const productList = await scrapProductDetail(MSY_CONFIG.CATEGORY_ID.CASE);
-    const formattedData = caseDataMapper(productList.data);
+    const formattedData = caseDataMapper(productList.data.data);
     const result = await findOneOrUpdate(formattedData, CaseModel);
     return new SuccessModel(result);
   } catch (error) {
     console.log(error.message);
     return new ErrorModel({
       errno: 1,
-      message: error.message
+      message: error.message,
     });
   }
 }
@@ -96,14 +96,14 @@ async function fetchGpuData() {
     const productList = await scrapProductDetail(
       MSY_CONFIG.CATEGORY_ID.GRAPHICS_CARD
     );
-    const formattedData = gpuDataMapper(productList.data);
+    const formattedData = gpuDataMapper(productList.data.data);
     const result = await findOneOrUpdate(formattedData, GpuModel);
     return new SuccessModel(result);
   } catch (error) {
     console.log(error.message);
     return new ErrorModel({
       errno: 1,
-      message: error.message
+      message: error.message,
     });
   }
 }
@@ -111,14 +111,14 @@ async function fetchGpuData() {
 async function fetchPsuData() {
   try {
     const productList = await scrapProductDetail(MSY_CONFIG.CATEGORY_ID.PSU);
-    const formattedData = psuDataMapper(productList.data);
+    const formattedData = psuDataMapper(productList.data.data);
     const result = await findOneOrUpdate(formattedData, PsuModel);
     return new SuccessModel(result);
   } catch (error) {
     console.log(error.message);
     return new ErrorModel({
       errno: 1,
-      message: error.message
+      message: error.message,
     });
   }
 }
@@ -128,14 +128,14 @@ async function fetchStorageData() {
     const productList = await scrapProductDetail(
       MSY_CONFIG.CATEGORY_ID.STORAGE
     );
-    const formattedData = storageDataMapper(productList.data);
+    const formattedData = storageDataMapper(productList.data.data);
     const result = await findOneOrUpdate(formattedData, StorageModel);
     return new SuccessModel(result);
   } catch (error) {
     console.log(error.message);
     return new ErrorModel({
       errno: 1,
-      message: error.message
+      message: error.message,
     });
   }
 }
@@ -144,7 +144,7 @@ async function fetchStorageData() {
 async function fetchCpuDataSequelize() {
   try {
     const productList = await scrapProductDetail(MSY_CONFIG.CATEGORY_ID.CPU);
-    const formattedData = cpuDataMapper(productList.data);
+    const formattedData = cpuDataMapper(productList.data.data);
 
     const createdProduct = await findOrCreate(formattedData);
     const updatedProduct = await updateData(formattedData);
@@ -153,7 +153,7 @@ async function fetchCpuDataSequelize() {
     console.log(error.message);
     return new ErrorModel({
       errno: 1,
-      message: error.message
+      message: error.message,
     });
   }
 }
@@ -166,5 +166,5 @@ module.exports = {
   fetchCaseData,
   fetchGpuData,
   fetchPsuData,
-  fetchStorageData
+  fetchStorageData,
 };

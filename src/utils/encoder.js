@@ -10,7 +10,6 @@ const encodeImage = (url) =>
             response.headers['content-type'] +
             ';base64,' +
             Buffer.from(body).toString('base64');
-          console.log(data);
           res(data);
         }
       });

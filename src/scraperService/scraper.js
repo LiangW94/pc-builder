@@ -4,6 +4,7 @@
 const { buildPayload } = require('../utils/payloadHelper');
 const { SuccessModel, ErrorModel } = require('../model/ResModel');
 const { MSY_CONFIG } = require('../utils/constants');
+const { encodeImage } = require('../utils/encoder');
 const axios = require('axios');
 const cheerio = require('cheerio');
 
@@ -36,7 +37,7 @@ async function scrapProductDetail(category) {
         const productLink = {
           id,
           href: `${MSY_CONFIG.MSY_DOMAIN}${href}`,
-          image
+          image,
         };
         allProductLinks.push(productLink);
       });
@@ -58,7 +59,7 @@ async function scrapProductDetail(category) {
     console.log('fetch link error');
     return new ErrorModel({
       errno: 1,
-      message: error.message
+      message: error.message,
     });
   }
 }
@@ -99,33 +100,32 @@ async function _fetchPage(category, pageNumber = null) {
 async function _scrapProductDetailFromLink(product, index) {
   try {
     const productDetailPage = await axios.get(product.href, {
-      timeout: 180000
+      timeout: 180000,
     });
     const $ = cheerio.load(productDetailPage.data);
 
     // scrap name sku id price
-    const productName = $('.product-name h1')
-      .text()
-      .trim();
-    const sku = $('.sku .value')
-      .text()
-      .trim();
+    const productName = $('.product-name h1').text().trim();
+    const sku = $('.sku .value').text().trim();
     const sku_id = $('.sku .value').attr('id');
     const price = $('.product-price span').attr('content');
     const { image } = product;
-    const productDetail = { productName, sku, sku_id, price, image };
+    const encodedImage = await encodeImage(image);
+
+    const productDetail = {
+      productName,
+      sku,
+      sku_id,
+      price,
+      image,
+      encodedImage,
+    };
 
     // scrap specification
     $('#specification tbody tr').each((i, element) => {
       const $element = $(element);
-      const title = $element
-        .find('.spec-name')
-        .text()
-        .trim();
-      const value = $element
-        .find('.spec-value')
-        .text()
-        .trim();
+      const title = $element.find('.spec-name').text().trim();
+      const value = $element.find('.spec-value').text().trim();
       productDetail[title] = value;
     });
 
@@ -150,11 +150,11 @@ async function _scrapProductDetailFromLink(product, index) {
     console.log('fetch item error: ', product);
     return new ErrorModel({
       errno: 1,
-      message: error.message
+      message: error.message,
     });
   }
 }
 
 module.exports = {
-  scrapProductDetail
+  scrapProductDetail,
 };

@@ -1,64 +1,67 @@
 const mongoose = require('../mongodb');
 const { MSY } = require('../../utils/constants');
-const { BOOLEAN, STRING, DECIMAL } = require('../types');
+const { BOOLEAN, STRING, DECIMAL, BUFFER } = require('../types');
 var Schema = mongoose.Schema;
 
 const PsuSchema = new Schema({
   name: {
     type: STRING,
-    required: true
+    required: true,
   },
   category: {
     type: STRING,
-    default: 'psu'
+    default: 'psu',
   },
   brand: {
     type: STRING,
-    required: true
+    required: true,
   },
   price: {
     type: DECIMAL,
-    required: true
+    required: true,
   },
   image: {
-    type: STRING
+    type: STRING,
+  },
+  encodedImage: {
+    type: BUFFER,
   },
   localRetailer: {
     type: STRING,
-    default: MSY
+    default: MSY,
   },
   retailerId: {
     type: STRING,
-    required: true
+    required: true,
   },
   retailerSKU: {
     type: STRING,
-    required: true
+    required: true,
   },
   TDP: {
-    type: STRING
+    type: STRING,
   },
   performanceLevel: {
-    type: STRING
+    type: STRING,
   },
   inStock: {
-    type: BOOLEAN
+    type: BOOLEAN,
   },
   maximumPower: {
-    type: STRING
+    type: STRING,
   },
   fan: {
-    type: STRING
+    type: STRING,
   },
   efficiency: {
-    type: STRING
+    type: STRING,
   },
   certified: {
-    type: STRING
+    type: STRING,
   },
   inputVoltage: {
-    type: STRING
-  }
+    type: STRING,
+  },
 });
 
 const PsuModel = mongoose.model('Psu', PsuSchema);
