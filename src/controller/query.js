@@ -5,7 +5,8 @@ const {
   CaseModel,
   GpuModel,
   PsuModel,
-  StorageModel
+  StorageModel,
+  RecommendationModel,
 } = require('../db/schema/index');
 const { SuccessModel, ErrorModel } = require('../model/ResModel');
 
@@ -18,7 +19,7 @@ async function searchByName(keyword, category) {
       case: CaseModel,
       gpu: GpuModel,
       psu: PsuModel,
-      storage: StorageModel
+      storage: StorageModel,
     };
     const searchKeyWord = new RegExp(keyword, 'i');
     const searchPayload = keyword
@@ -45,6 +46,16 @@ async function searchByName(keyword, category) {
   }
 }
 
+async function fetchRecommendation() {
+  try {
+    const result = await RecommendationModel.find({});
+    return new SuccessModel(result);
+  } catch (error) {
+    return new ErrorModel({ errno: 1, message: error.message });
+  }
+}
+
 module.exports = {
-  searchByName
+  searchByName,
+  fetchRecommendation,
 };
