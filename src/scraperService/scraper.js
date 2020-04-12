@@ -4,7 +4,7 @@
 const { buildPayload } = require('../utils/payloadHelper');
 const { SuccessModel, ErrorModel } = require('../model/ResModel');
 const { MSY_CONFIG } = require('../utils/constants');
-// const { encodeImage } = require('../utils/encoder');
+// const { encodeImageFromURL } = require('../utils/encoder');
 const axios = require('axios');
 const cheerio = require('cheerio');
 
@@ -110,7 +110,7 @@ async function _scrapProductDetailFromLink(product, index) {
     const sku_id = $('.sku .value').attr('id');
     const price = $('.product-price span').attr('content');
     const { image } = product;
-    // const encodedImage = await encodeImage(image);
+    // const encodedImage = await encodeImageFromURL(image);
 
     const productDetail = {
       productName,

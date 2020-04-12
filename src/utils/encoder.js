@@ -1,6 +1,6 @@
 const request = require('request').defaults({ encoding: null });
 
-const encodeImage = (url) =>
+const encodeImageFromURL = (url) =>
   new Promise((res, rej) => {
     try {
       request.get(url, function (error, response, body) {
@@ -18,4 +18,10 @@ const encodeImage = (url) =>
     }
   });
 
-module.exports = { encodeImage };
+const encodeImage = (image) => {
+  const encodedImage =
+    'data:' + 'image/jpeg' + ';base64,' + Buffer.from(image).toString('base64');
+  return encodedImage;
+};
+
+module.exports = { encodeImageFromURL, encodeImage };
