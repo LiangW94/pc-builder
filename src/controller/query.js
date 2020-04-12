@@ -9,6 +9,8 @@ const {
   RecommendationModel,
 } = require('../db/schema/index');
 const { SuccessModel, ErrorModel } = require('../model/ResModel');
+const { encodeImage } = require('../utils/encoder');
+const fs = require('fs');
 
 async function searchByName(keyword, category) {
   try {
@@ -49,7 +51,10 @@ async function searchByName(keyword, category) {
 async function fetchRecommendation() {
   try {
     const result = await RecommendationModel.find({});
-    return new SuccessModel(result);
+    let imageD = fs.readFileSync('./public/images/D.jpg');
+    imageD = encodeImage(imageD);
+
+    return new SuccessModel({ result, image: { imageD } });
   } catch (error) {
     return new ErrorModel({ errno: 1, message: error.message });
   }
